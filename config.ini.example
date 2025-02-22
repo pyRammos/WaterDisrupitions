@@ -1,0 +1,10 @@
+[RSS]
+url = https://www.eydap.gr/handlers/rss.ashx?collection=DenialOfService&Culture=69
+area = ΓΑΛΑΤΣΙ
+
+[PUSHOVER]
+api_key = your_pushover_api_key_here
+user_key = your_pushover_user_key_here
+
+[NOTIFICATIONS]
+min_interval_minutes = 30
