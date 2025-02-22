@@ -75,7 +75,7 @@ def check_disruptions(feed, area):
     return None
 
 def send_pushover_notification(api_key, user_key, title, message):
-    """Send a notification through Pushover using direct HTTPS request."""
+    """Send a notification through Pushover using a direct HTTPS request."""
     url = "https://api.pushover.net/1/messages.json"
     data = {
         "token": api_key,
@@ -83,10 +83,8 @@ def send_pushover_notification(api_key, user_key, title, message):
         "title": title,
         "message": message
     }
-    
     response = requests.post(url, data=data)
-    if response.status_code != 200:
-        raise Exception(f"Pushover API error: {response.text}")
+    response.raise_for_status()
 
 def load_last_notification():
     """Load information about the last sent notification."""
@@ -159,7 +157,7 @@ def main():
         if disruption:
             print(f"\nDisruption found for area: {area}")
             if should_send_notification(disruption, min_interval):
-                title = "Water Disruption Alert"
+                title = "Water Outage"
                 message = f"Disruption in {area}: {disruption.get('description', '')}"
                 send_pushover_notification(pushover_api, pushover_user, title, message)
                 save_last_notification(disruption)
